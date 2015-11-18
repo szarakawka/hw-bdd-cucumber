@@ -1,3 +1,6 @@
+# require File.expand_path(File.join(File.dirname(__FILE__), ".", "web_steps"))
+
+
 # Add a declarative step here for populating the DB with movies.
 
 Given /the following movies exist/ do |movies_table|
@@ -26,7 +29,14 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
-  fail "Unimplemented"
+  rating_list.split(',').each do |rating|
+    rating.strip!
+    if uncheck
+      step "I uncheck \"ratings_#{rating}\""
+    else
+      step "I check \"ratings_#{rating}\""
+    end
+  end
 end
 
 Then /I should see all the movies/ do
