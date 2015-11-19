@@ -1,6 +1,3 @@
-# require File.expand_path(File.join(File.dirname(__FILE__), ".", "web_steps"))
-
-
 # Add a declarative step here for populating the DB with movies.
 
 Given /the following movies exist/ do |movies_table|
@@ -41,5 +38,6 @@ end
 
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
-  fail "Unimplemented"
+  number_of_movies = page.all(:css, 'table#movies tbody tr').length
+  number_of_movies.should == Movie.all.length
 end
